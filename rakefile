@@ -1,0 +1,18 @@
+load 'open-weather-api.gemspec'
+
+require 'open-weather-api'
+require 'fileutils'
+
+built_gem_file = "open-weather-api-#{OpenWeatherAPI::VERSION}.gem"
+
+task :build do
+  # Build the gem
+  sh 'gem build open-weather-api.gemspec'
+
+  # Move it to /build
+  FileUtils.mv "#{built_gem_file}", "build/#{built_gem_file}", force: true
+end
+
+task :publish => [:build] do
+  sh "gem push build/#{built_gem_file}"
+end

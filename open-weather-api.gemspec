@@ -5,7 +5,7 @@ require 'open-weather-api/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "open-weather-api"
-  spec.version       = OpenWeatherApi::VERSION
+  spec.version       = OpenWeatherAPI::VERSION
   spec.authors       = ["Wikiti"]
   spec.email         = ["wikiti.doghound@gmail.com"]
   spec.summary       = %q{Simple wrapper for Open Weather Map API}
