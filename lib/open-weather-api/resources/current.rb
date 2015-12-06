@@ -15,29 +15,29 @@ module OpenWeatherAPI
 
       # Simple handlers
       def city
-        City.new @parameters
+        City.new @api_obj, @parameters
       end
 
       def city_id
-        CityID.new @parameters
+        CityID.new @api_obj, @parameters
       end
 
       def geolocation
-        Geolocation.new @parameters
+        Geolocation.new @api_obj, @parameters
       end
 
       def zipcode
-        Zipcode.new @parameters
+        Zipcode.new @api_obj, @parameters
       end
 
       # Other handlers
       # ------------------
       def bbox
-        BoundingBox.new @parameters
+        BoundingBox.new @api_obj, @parameters
       end
       
       def circle
-        Circle.new @parameters
+        Circle.new @api_obj, @parameters
       end
 
     end

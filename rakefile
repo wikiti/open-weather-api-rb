@@ -1,7 +1,12 @@
+# Gemspec
 load 'open-weather-api.gemspec'
 
+# Dependencies
 require 'open-weather-api'
 require 'fileutils'
+
+
+# Build
 
 built_gem_file = "open-weather-api-#{OpenWeatherAPI::VERSION}.gem"
 
@@ -13,6 +18,11 @@ task :build do
   FileUtils.mv "#{built_gem_file}", "build/#{built_gem_file}", force: true
 end
 
-task :publish => [:build] do
+task publish: [:build] do
   sh "gem push build/#{built_gem_file}"
+end
+
+# Test
+task :test do
+  sh 'bundle exec rspec spec'
 end

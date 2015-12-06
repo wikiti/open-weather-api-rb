@@ -2,7 +2,8 @@ module OpenWeatherAPI
   module Resources
 
      class QueryHandler
-      def initialize(parameters = {})
+      def initialize(api_obj, parameters = {})
+        @api_obj = api_obj
         @parameters = parameters
       end
 
@@ -25,7 +26,7 @@ module OpenWeatherAPI
       end
 
       def country_code
-        @parameters[:country_code] || @api_obj.default_country_code
+        @parameters[:country_code] || @parameters[:cc] || @api_obj.default_country_code
       end
 
       def cities_count

@@ -24,7 +24,7 @@ module OpenWeatherAPI
         private
 
         def build
-          { q: [value].flatten.compact.join(',') }
+          { id: [value].flatten.compact.join(',') }
         end
 
         def value

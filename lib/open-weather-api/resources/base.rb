@@ -12,19 +12,21 @@ module OpenWeatherAPI
         @parameters = hash
         setup_indifferent_access(@parameters)
 
-        response = request
-        raise "Invalid response." unless response.code == 200
-
-        json = JSON.parse(response.body)
-
-        return block.call(json) if block_given?
-        json
+        # Let's use json
+        execute_json **hash, &block
       end
 
       private
 
-      def request(type = :get)
-        RestClient.send type, base_url, params: build_params(@parameters), accept: :json
+      def execute_json(**hash, &block)
+        response = RestClient.send :get, base_url, params: build_params(@parameters), accept: :json
+        raise "Invalid response." unless response.code == 200
+
+        json = JSON.parse(response.body)
+        setup_indifferent_access(json)
+
+        return block.call(json) if block_given?
+        json
       end
 
       def base_url
