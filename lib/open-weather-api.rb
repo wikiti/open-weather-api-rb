@@ -8,6 +8,7 @@ require 'json'
 # Main files
 require 'open-weather-api/resources/base'
 require 'open-weather-api/resources/current'
+require 'open-weather-api/resources/forecast_hourly'
 require 'open-weather-api/resources/handlers/base'
 require 'open-weather-api/resources/handlers/current'
 require 'open-weather-api/config'

@@ -1,3 +1,5 @@
+raise "You MUST setup 'OPEN_WEATHER_API_KEY' env variable before running tests!" unless ENV['OPEN_WEATHER_API_KEY']
+
 require 'bundler/setup'
 Bundler.setup
 

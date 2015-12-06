@@ -13,24 +13,38 @@ module OpenWeatherAPI
         setup_indifferent_access(@parameters)
 
         # Let's use json
-        execute_json **hash, &block
+        response = RestClient.send :get, base_url, params: build_params(@parameters)
+        raise "Invalid response." unless response.code == 200
+
+        # Handle the response format 
+        response = self.send "handle_response_#{mode}", response
+
+        # Handle the block
+        return block.call(response) if block_given?
+        response
       end
 
       private
 
-      def execute_json(**hash, &block)
-        response = RestClient.send :get, base_url, params: build_params(@parameters), accept: :json
-        raise "Invalid response." unless response.code == 200
+      def mode
+        (@parameters[:mode] || 'json').to_s.to_sym
+      end
 
+      def handle_response_json(response)
         json = JSON.parse(response.body)
         setup_indifferent_access(json)
+      end
 
-        return block.call(json) if block_given?
-        json
+      def handle_response_xml(response)
+        response.body
+      end
+
+      def handle_response_html(response)
+        response.body
       end
 
       def base_url
-        'http://api.openweathermap.org/data/2.5/'
+        "http://api.openweathermap.org/data/#{API::VERSION || '2.5'}/"
       end
 
       def setup_indifferent_access(sub_hash)

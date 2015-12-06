@@ -4,54 +4,6 @@ module OpenWeatherAPI
     class Current
       private
 
-      class City < QueryHandler
-        private
-        
-        def build
-          { q: [value, country_code].compact.flatten.join(',') }
-        end
-        
-        def value
-          @parameters[:city]
-        end
-      end
-
-      class CityID < QueryHandler
-        def multiple?
-          value.is_a? Array
-        end
-
-        private
-
-        def build
-          { id: [value].flatten.compact.join(',') }
-        end
-
-        def value
-          @parameters[:id] || @parameters[:city_id]
-        end
-      end
-
-      class Geolocation < QueryHandler
-        def can?
-          latitude != nil && longitude != nil
-        end
-
-        private
-
-        def build
-          { lat: latitude, lon: longitude }
-        end
-
-        def latitude
-          @parameters[:latitude] || @parameters[:lat]
-        end
-
-        def longitude
-          @parameters[:longitude] || @parameters[:lon]
-        end
-      end
-
       class Zipcode < QueryHandler
         private
 

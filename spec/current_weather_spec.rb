@@ -39,5 +39,13 @@ describe OpenWeatherAPI::API do
 
       expect(json1).to eq(json2)
     end
+
+    it 'works with xml format' do
+      expect(api.current(city: 'Santa Cruz de Tenerife', mode: :xml)).not_to be_nil
+    end
+
+    it 'works with html format' do
+      expect(api.current(city: 'Santa Cruz de Tenerife', mode: :html)).not_to be_nil
+    end
   end
 end

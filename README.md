@@ -49,7 +49,7 @@ Outside of the configuration file, you can access the `api` object as follows:
 Rails.configuration.open_weather_api
 ````
 
-### Other
+### Generic
 
 ```ruby
 open_weather_api = OpenWeatherAPI::API.new api_key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", default_language: 'es', default_units: 'metric', default_country_code: 'es'
@@ -59,8 +59,6 @@ open_weather_api = OpenWeatherAPI::API.new api_key: "xxxxxxxxxxxxxxxxxxxxxxxxxxx
 ----------------------------
 
 Finally, you can use the different resources of the API:
-
-**NOTE**: You can add manually any parameter you need for each request, and they will override the computed parameters.
 
 ### Current Weather
 
@@ -106,17 +104,33 @@ By a geolocated circle (**WARNING**: Unexpected behaviour by API):
 json = open_weather_api.current circle: { lat: -16.3319, lon: 28.5046 }, cities_count: 2
 ````
 
-You can also use ruby blocks to handle the response:
-
-````ruby
-json = open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
-  puts JSON.pretty_generate(json)
-end
-````
-
 For more information about the API, visit [http://openweathermap.org/current](http://openweathermap.org/current).
 
 ### Forecast
+
+#### Hourly (actually, every 3 hours, up to 5 days)
+
+By city name:
+
+````ruby
+json = open_weather_api.forecast :hourly, city: 'Santa Cruz de Tenerife', country_code: 'es'
+````
+
+By city id:
+
+````ruby
+json = open_weather_api.forecast :hourly, id: 6360638
+````
+
+By geolocation:
+
+````ruby
+json = open_weather_api.forecast :hourly, lon: -16.20302, lat: 28.53924
+````
+
+For more information about the API, visit [http://openweathermap.org/forecast5](http://openweathermap.org/forecast5).
+
+#### Daily
 
 TODO.
 
@@ -127,6 +141,28 @@ Retrieve icon url:
 ````ruby
 open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
   puts "Icon url: #{api.icon_url json['weather'].first['icon']}"
+end
+````
+
+You can add manually any parameter you need for each request, and they will override the computed parameters:
+
+````ruby
+open_weather_api.current city: 'Balashikha', country_code: "ru", lang: "ru"
+````
+
+Also, you can define the response format with the `:mode` parameters. Valid formats are `:json` (returns a `Hash`), `:xml` and `:html` (both return a `String`):
+
+````ruby
+open_weather_api.current city: 'Santa Cruz de Tenerife', mode: :xml do |xml_str|
+  puts "XML data: #{xml_str}"
+end
+````
+
+You can use ruby blocks to handle the response:
+
+````ruby
+open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es', mode: :json do |json|
+  puts JSON.pretty_generate(json)
 end
 ````
 

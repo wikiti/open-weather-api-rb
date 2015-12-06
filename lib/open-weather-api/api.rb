@@ -1,6 +1,8 @@
 module OpenWeatherAPI
   class API
 
+    VERSION = "2.5"
+
     attr_accessor :api_key, :default_language, :default_country_code, :default_units
 
     def initialize(options = {})
@@ -16,8 +18,6 @@ module OpenWeatherAPI
 
     # Not yet implemented
     def forecast(type = :hourly, **args, &block)
-      raise ArgumentError, "Invalid #{type} forecast type."
-
       self.send("fetch_forecast_#{type}").execute(**args, &block)
     end
 
