@@ -27,7 +27,11 @@ module OpenWeatherAPI
       private
 
       def mode
-        (@parameters[:mode] || 'json').to_s.to_sym
+        (@parameters[:mode] || :json).to_s.to_sym
+      end
+
+      def handle_response_raw(response)
+        response
       end
 
       def handle_response_json(response)

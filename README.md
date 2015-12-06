@@ -106,9 +106,7 @@ json = open_weather_api.current circle: { lat: -16.3319, lon: 28.5046 }, cities_
 
 For more information about the API, visit [http://openweathermap.org/current](http://openweathermap.org/current).
 
-### Forecast
-
-#### Hourly (actually, every 3 hours, up to 5 days)
+### Hourly forecast (actually, every 3 hours, up to 5 days)
 
 By city name:
 
@@ -130,9 +128,51 @@ json = open_weather_api.forecast :hourly, lon: -16.20302, lat: 28.53924
 
 For more information about the API, visit [http://openweathermap.org/forecast5](http://openweathermap.org/forecast5).
 
-#### Daily
+#### Daily forecast (up to 16 days)
 
-TODO.
+Same as above, but changing `:hourly` to `:daily`. Also, you must add the `:days` to the resquests. Default is `1`.
+
+By city name:
+
+````ruby
+json = open_weather_api.forecast :daily, city: 'Santa Cruz de Tenerife', country_code: 'es', days: 2
+````
+
+By city id:
+
+````ruby
+json = open_weather_api.forecast :daily, id: 6360638, days: 2
+````
+
+By geolocation:
+
+````ruby
+json = open_weather_api.forecast :daily, lon: -16.20302, lat: 28.53924, days: 2
+````
+
+For more information about the API, visit [http://openweathermap.org/forecast5](http://openweathermap.org/forecast5).
+
+### Historical data
+
+TODO
+
+### Weather stations
+
+TODO
+
+### UV index
+
+TODO
+
+### Raw requests
+
+You can also make your very own calls to the api:
+
+````ruby
+json = open_weather_api.raw 'route/to/my/resource', param1: 'param', param2: 'param', lang: 'es'
+````
+
+Note that it's not necessary to add `APPID` parameter to the call.
 
 ### Other
 
@@ -147,7 +187,7 @@ end
 You can add manually any parameter you need for each request, and they will override the computed parameters:
 
 ````ruby
-open_weather_api.current city: 'Balashikha', country_code: "ru", lang: "ru"
+open_weather_api.current city: 'Balashikha', country_code: 'ru', lang: 'ru', mypara: 'param'
 ````
 
 Also, you can define the response format with the `:mode` parameters. Valid formats are `:json` (returns a `Hash`), `:xml` and `:html` (both return a `String`):
@@ -172,13 +212,4 @@ This project has been developed by:
 
 | Avatar | Name | Nickname | Email |
 | ------- | ------------- | --------- | ------------------ |
-| ![](http://www.gravatar.com/avatar/2ae6d81e0605177ba9e17b19f54e6b6c.jpg?s=64)  | Daniel Herzog | Wikiti | [wikiti.doghound@gmail.com](mailto:wikiti.doghound@gmail.com)
-
-## Contributing
-
-1. Fork it ( [https://gitlab.com/wikiti-random-stuff/open-weather-api/fork/new](https://gitlab.com/wikiti-random-stuff/open-weather-api/fork/new) )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Run tests (`rake test`)
-5. Push to the branch (`git push origin my-new-feature`)
-6. Create new Merge Request
+| ![](http://www.gravatar.com/avatar/2ae6d81e0605177ba9e17b19f54e6b6c.jpg?s=64)  | Daniel Herzog | Wikiti | [wikiti.doghound@gmail.com](mailto:wikiti.doghound@gmail.com) |

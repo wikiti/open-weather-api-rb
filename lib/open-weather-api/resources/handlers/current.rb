@@ -1,8 +1,6 @@
 module OpenWeatherAPI
   module Resources
-
-    class Current
-      private
+    module Handlers
 
       class Zipcode < QueryHandler
         private
@@ -51,6 +49,7 @@ module OpenWeatherAPI
           fill lat: value[:lat], lon: value[:lon]
         end
       end
+
     end
   end
 end

@@ -16,9 +16,14 @@ module OpenWeatherAPI
       fetch_current.execute(**args, &block)
     end
 
-    # Not yet implemented
     def forecast(type = :hourly, **args, &block)
+      raise "Invalid '#type' forecast type" unless valid_forecast_type?(type)
+
       self.send("fetch_forecast_#{type}").execute(**args, &block)
+    end
+
+    def raw(path = "/", **args, &block)
+      fetch_raw.execute(path, **args, &block)
     end
 
     def icon_url(icon_code)
@@ -31,6 +36,10 @@ module OpenWeatherAPI
 
     def valid_forecast_type?(type)
       VALID_FORECAST_TYPES.include? type.to_sym
+    end
+
+    def fetch_raw
+      @current ||= Resources::Raw.new self
     end
 
     def fetch_current

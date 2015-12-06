@@ -3,7 +3,7 @@ module OpenWeatherAPI
     class ForecastHourly < Base
 
       def base_url
-        return super + 'forecast'
+        return super + 'forecast/'
       end
 
       def build_params(parameters = {})
@@ -12,15 +12,15 @@ module OpenWeatherAPI
 
       # Simple handlers
       def city
-        City.new @api_obj, @parameters
+        Handlers::City.new @api_obj, @parameters
       end
 
       def city_id
-        CityID.new @api_obj, @parameters
+        Handlers::CityID.new @api_obj, @parameters
       end
 
       def geolocation
-        Geolocation.new @api_obj, @parameters
+        Handlers::Geolocation.new @api_obj, @parameters
       end
 
     end
