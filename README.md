@@ -96,16 +96,26 @@ json = open_weather_api.current circle: { lat: -16.3319, lon: 28.5046 }, cities_
 You can also use ruby blocks to handle the response:
 
 ````ruby
-open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
+json = open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
   puts JSON.pretty_generate(json)
 end
 ````
 
-For more information about the API, visit (http://openweathermap.org/current)[http://openweathermap.org/current].
+For more information about the API, visit [http://openweathermap.org/current](http://openweathermap.org/current).
 
 ### Forecast
 
 TODO.
+
+### Other
+
+Retrieve icon url:
+
+````ruby
+api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
+  puts "Icon url: #{api.icon_url json['weather'].first['icon']}"
+end
+````
 
 ## Authors ##
 
@@ -117,7 +127,7 @@ This project has been developed by:
 
 ## Contributing
 
-1. Fork it ( http://github.com/wikiti/open-weather-api/fork )
+1. Fork it ( [https://gitlab.com/wikiti-random-stuff/open-weather-api/fork/new](https://gitlab.com/wikiti-random-stuff/open-weather-api/fork/new) )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
