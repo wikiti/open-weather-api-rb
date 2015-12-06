@@ -1,15 +1,13 @@
 module OpenWeatherAPI
   class API
 
-    attr_reader :api_key, :options
-    attr_accessor :default_language, :default_country_code, :default_units
+    attr_accessor :api_key, :default_language, :default_country_code, :default_units
 
     def initialize(options = {})
-      @options = options
       @api_key = options[:api_key] || options['api_key']
-      @default_language = options[:language] || options['language'] || 'en'
+      @default_language = options[:default_language] || options['default_language'] || 'en'
       @default_country_code = options[:default_country_code] || options['default_country_code']
-      @default_units =  options[:units] || options['units'] || 'metric'
+      @default_units =  options[:default_units] || options['default_units'] || 'metric'
     end
 
     def current(**args, &block)

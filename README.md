@@ -31,15 +31,28 @@ First, you need to init the API:
 ```ruby
 # config/initializers/open-weather-api.rb
 
-Rails.configuration.open_weather_api = OpenWeatherAPI::API.new api_key: ENV['OPEN_WEATHER_API_KEY'], language: 'es', units: 'metric'
+# Note that 'config' is an instance of `OpenWeatherAPI::API` (just name it as you like).
+OpenWeatherAPI.configure do |config|
+  # API key
+  config.api_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+  # Optionals
+  config.default_language = 'es'     # 'en' by default
+  config.default_country_code = 'es' # nil by default (ISO 3166-1 alfa2)
+  config.default_units = 'metric'    # 'metric' by default
+end
 ```
 
-`language`, `default_country_code` and `metrics` are optional values, with defaults `'en'`, `nil` and `'metric'`.
+Outside of the configuration file, you can access the `api` object as follows:
+
+````ruby
+Rails.configuration.open_weather_api
+````
 
 ### Other
 
 ```ruby
-open_weather_api = OpenWeatherAPI::API.new api_key: ENV['OPEN_WEATHER_API_KEY'], language: 'es', units: 'metric'
+open_weather_api = OpenWeatherAPI::API.new api_key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", default_language: 'es', default_units: 'metric', default_country_code: 'es'
 # ...
 ```
 
@@ -47,7 +60,7 @@ open_weather_api = OpenWeatherAPI::API.new api_key: ENV['OPEN_WEATHER_API_KEY'],
 
 Finally, you can use the different resources of the API:
 
-**NOTE**: You can add manually any parameter you need for each request.
+**NOTE**: You can add manually any parameter you need for each request, and they will override the computed parameters.
 
 ### Current Weather
 
@@ -112,7 +125,7 @@ TODO.
 Retrieve icon url:
 
 ````ruby
-api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
+open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es' do |json|
   puts "Icon url: #{api.icon_url json['weather'].first['icon']}"
 end
 ````
