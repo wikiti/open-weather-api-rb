@@ -15,6 +15,7 @@ task :build do
   sh 'gem build open-weather-api.gemspec'
 
   # Move it to /build
+  FileUtils.mkdir_p "build/"
   FileUtils.mv "#{built_gem_file}", "build/#{built_gem_file}", force: true
 end
 
