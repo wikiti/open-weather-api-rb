@@ -1,8 +1,6 @@
 # OpenWeatherApi wrapper for Ruby
 
-<div align="center">
 ![](doc/icon.png)
-<div align="left">
 
 Simple wrapper for Open Weather Map API.
 
