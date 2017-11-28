@@ -7,8 +7,7 @@ module OpenWeatherAPI
       end
 
       def build_params(parameters = {})
-        parameters.merge!(cnt: days)
-        super(parameters)
+        super(parameters.merge(cnt: days))
       end
 
       def days

@@ -206,6 +206,20 @@ open_weather_api.current city: 'Santa Cruz de Tenerife', country_code: 'es', mod
 end
 ````
 
+## Development
+
+Clone this repository with
+
+```
+git clone git@github.com:wikiti/open-weather-api-rb.git
+```
+
+To run tests, just run rspec:
+
+```
+OPEN_WEATHER_API_KEY=your_api_key bundle exec rspec
+```
+
 ## Authors ##
 
 This project has been developed by:

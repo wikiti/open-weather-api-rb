@@ -7,7 +7,7 @@ module OpenWeatherAPI
       end
 
       def build_params(parameters = {})
-        super [city, city_id, geolocation].each{ |h| break h.handle if h.can? }
+        super parameters.merge([city, city_id, geolocation].each{ |h| break h.handle if h.can? })
       end
 
       # Simple handlers

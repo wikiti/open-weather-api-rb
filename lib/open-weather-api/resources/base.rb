@@ -16,7 +16,7 @@ module OpenWeatherAPI
         response = RestClient.send :get, base_url, params: build_params(@parameters)
         raise "Invalid response." unless response.code == 200
 
-        # Handle the response format 
+        # Handle the response format
         response = self.send "handle_response_#{mode}", response
 
         # Handle the block
@@ -59,7 +59,8 @@ module OpenWeatherAPI
       def build_params(parameters = {})
         {
           APPID: @api_obj.api_key,
-          lang:  @api_obj.default_language
+          lang:  @api_obj.default_language,
+          units: @api_obj.default_units
         }.merge(parameters)
       end
     end

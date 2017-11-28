@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe OpenWeatherAPI::API do
-  describe 'When fetching current weather' do
-    let(:api) { OpenWeatherAPI::API.new( api_key: ENV['OPEN_WEATHER_API_KEY'], default_language: 'es', default_country_code: 'es' ) }
+  let(:api) do
+    OpenWeatherAPI::API.new(api_key: ENV['OPEN_WEATHER_API_KEY'],
+                            default_language: 'es',
+                            default_country_code: 'es')
+  end
 
+  describe 'When fetching current weather' do
     it 'should retrieve data by city name' do
       expect(api.current(city: 'Santa Cruz de Tenerife')[:cod].to_i).to eq(200)
     end
